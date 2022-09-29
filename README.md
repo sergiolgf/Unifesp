@@ -1,2 +1,2 @@
 # AED1
-Disciplina Agoritmos e Estruturas de Dadis I 2022.2
+Disciplina Agoritmos e Estruturas de Dados I 2022.2
