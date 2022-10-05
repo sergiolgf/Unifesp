@@ -44,69 +44,58 @@ printf("Voce realizou %d reservas e %d retiradas\n", reservas, retidas); */
 #include <stdio.h>
 #include <stdlib.h>
 
-#define N 100
+#define N 10
 
 typedef struct{
-    int valor;
-    int prox;
-}Tinfo;
+    int tamanho;
+    int lista[N];
+}Tlista;
 
-typedef struct{
-    int tamanhodalista;
-    int primeiro;
-    int ultimo;
-    int poslivre[N];
-    Tinfo elemento[N];
-}TLEE;
-
-void inicializaLista(TLEE *listaAux){
+void inicialista(Tlista *lista){
     int i;
-    listaAux->tamanhodalista=0;
-    listaAux->primeiro = -1;
-    listaAux->ultimo=-1;
+    lista->tamanho=0;
     for(i=0;i<N;i++){
-        listaAux->elemento[i].valor=0;
-        listaAux->elemento[i].prox=-1;
-        listaAux->poslivre[i]=1;
+        lista->lista[i]=0;
     }
 }
 
-void insereElementoFinal(TLEE *listaAUX,int posicao){
-    if(posicao!=-1){
-        scanf("%d",&listaAUX->elemento[posicao].valor);
-        if(listaAUX->tamanhodalista==0){
-            listaAUX->primeiro=posicao;
-        }else{
-            listaAUX->elemento[listaAUX->ultimo].prox=posicao;
+void inserefim(Tlista *lista,int a){
+    lista->tamanho++;
+    lista->lista[lista->tamanho-1]=a;
+}
+
+Tlista removeel(Tlista *lista, int a){
+    int i,j;
+    for(i=0;i<lista->tamanho;i++){
+        if(lista->lista[i]==a){
+            lista->lista[i]=0;
+            lista->tamanho--;
+            for(j=i;j<lista->tamanho;j++){
+                lista->lista[j]=lista->lista[j+1];
+            }
+            return *lista;
         }
-        listaAUX->elemento[posicao].prox=-1;
-        listaAUX->tamanhodalista++;
-        listaAUX->ultimo=posicao;
-        listaAUX->poslivre[posicao]=0;
     }
 }
 
-int proxPosLivre(TLEE *listaAux){
+void imprimelista(Tlista *lista){
     int i;
-    for(i=0;i<N;i++){
-        if(listaAux->poslivre[i]==1){
-            return i;
-        }
+    for(i=0;i<lista->tamanho;i++){
+        printf("%d ",lista->lista[i]);
     }
-    return -1;
-}
-
-TLEE removeelemento(TLEE *listaAUX,int a){
-    int i;
-    for(i=0;i<N;i++){
-        if(listaAUX->elemento[i].valor){
-            
-        }
-    }
-    listaAUX->tamanhodalista--;
 }
 
 int main(){
+    Tlista lista;
+    int a=10,b=20,c=30;
 
+    inicialista(&lista);
+    inserefim(&lista,a);
+    inserefim(&lista,c);
+    inserefim(&lista,b);
+    removeel(&lista,20);
 
+    imprimelista(&lista);
+    
+    return 0;
 }
