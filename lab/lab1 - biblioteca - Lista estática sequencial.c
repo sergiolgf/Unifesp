@@ -59,12 +59,19 @@ void inicialista(Tlista *lista){
     }
 }
 
-void inserefim(Tlista *lista,int a){
-    lista->tamanho++;
-    lista->lista[lista->tamanho-1]=a;
+void inserefim(Tlista *lista,int a,int *nres){
+    if(lista->tamanho==N){
+        printf("Lista de reserva cheia\n");
+    }else{
+        lista->tamanho++;
+        lista->lista[lista->tamanho-1]=a;
+        printf("Sua reserva foi realizada\n");
+        *nres+=1;
+    }
+    
 }
 
-Tlista removeel(Tlista *lista, int a){
+int removeel(Tlista *lista, int a, int *nret){
     int i,j;
     for(i=0;i<lista->tamanho;i++){
         if(lista->lista[i]==a){
@@ -73,9 +80,12 @@ Tlista removeel(Tlista *lista, int a){
             for(j=i;j<lista->tamanho;j++){
                 lista->lista[j]=lista->lista[j+1];
             }
-            return *lista;
+            printf("O livro foi retirado com sucesso\n");
+            *nret+=1;
+            return 0;
         }
     }
+    printf("Voce nao possui reserva desse livro\n");
 }
 
 void imprimelista(Tlista *lista){
@@ -87,15 +97,28 @@ void imprimelista(Tlista *lista){
 
 int main(){
     Tlista lista;
-    int a=10,b=20,c=30;
+    int L,i,op,num;
+    int nres=0,nret=0;
 
     inicialista(&lista);
-    inserefim(&lista,a);
-    inserefim(&lista,c);
-    inserefim(&lista,b);
-    removeel(&lista,20);
 
-    imprimelista(&lista);
+    scanf("%d",&L);
+    for(i=0;i<L;i++){
+        scanf("%d %d",&op, &num);
+        switch(op){
+            case 1:
+                //reserva
+                inserefim(&lista,num,&nres);
+                break;
+            case 2:
+                //retira
+                removeel(&lista,num,&nret);
+                break;
+        }
+    }
+
+    printf("Voce realizou %d reservas e %d retiradas\n", nres, nret);
+    
     
     return 0;
 }
