@@ -1,11 +1,11 @@
 #include <stdio.h>
 #define N 10
-
+ 
 typedef struct{
     int ra;
     int prox;
 }TAluno;
-
+ 
 typedef struct{
     int tamanho;
     int primeiro;
@@ -13,7 +13,7 @@ typedef struct{
     int poslivre[N];
     TAluno lista[N];
 }TLEE;
-
+ 
 void inicialista(TLEE *listaaux){
     int i;
     listaaux->ultimo=-1;
@@ -25,14 +25,14 @@ void inicialista(TLEE *listaaux){
         listaaux->lista[i].prox=-1;
     }
 }
-
+ 
 int insere(TLEE *listaaux, int ra, int plivre){
     int i,j=0;
     if(listaaux->tamanho==0){
         listaaux->primeiro=plivre;
         listaaux->ultimo=plivre;
     }else if(plivre==-1){
-        printf("Lista cheia\n");
+        printf("lista cheia\n");
         return 1;
     }else if(listaaux->lista[listaaux->primeiro].ra>ra){
         //insercao no comeco
@@ -55,7 +55,7 @@ int insere(TLEE *listaaux, int ra, int plivre){
     listaaux->tamanho+=1;
     return 0;
 }
-
+ 
 int retira(TLEE *listaaux,int ra){
     int i,j=0;
     for(i=listaaux->primeiro;i!=-1;i=listaaux->lista[i].prox){
@@ -72,7 +72,9 @@ int retira(TLEE *listaaux,int ra){
                 listaaux->lista[j].prox=listaaux->lista[i].prox;
             }
             listaaux->tamanho-=1;
-
+            if(listaaux->tamanho==0){
+                inicialista(listaaux);
+            }
             return 0;
         }
         j=i;
@@ -80,7 +82,7 @@ int retira(TLEE *listaaux,int ra){
     printf("nao existe\n");
     return 1;
 }
-
+ 
 int proxlivre(TLEE *listaaux){
     int i;
     for(i=0;i<N;i++){
@@ -90,7 +92,7 @@ int proxlivre(TLEE *listaaux){
     }
     return -1;
 }
-
+ 
 void imprimelista(TLEE listaaux){
     int i=listaaux.primeiro;
     if(listaaux.tamanho!=0){
@@ -104,7 +106,7 @@ void imprimelista(TLEE listaaux){
     printf("\n");
     
 }
-
+ 
 int descobreano(int ra){
     int id;
     id=ra/1000;
@@ -135,15 +137,15 @@ int descobreano(int ra){
             break;
     }
 }
-
-
+ 
+ 
 int main(){
     int L=0,i=0,op=0,auxra=0;
     int c2011=0,c2012=0,c2013=0,c2014=0,c2015=0,c2016=0,c2017=0,c2018=0;
     TLEE lista;
-
+ 
     inicialista(&lista);
-
+ 
     scanf("%d",&L);
     for(i=0;i<L;i++){
         scanf("%d %d",&op,&auxra);
@@ -186,7 +188,7 @@ int main(){
         }
         imprimelista(lista);
     }
-
+    
     printf("2011: %d\n",c2011);
     printf("2012: %d\n",c2012);
     printf("2013: %d\n",c2013);
@@ -195,6 +197,6 @@ int main(){
     printf("2016: %d\n",c2016);
     printf("2017: %d\n",c2017);
     printf("2018: %d\n",c2018);
-
-
+ 
+ 
 }
