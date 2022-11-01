@@ -116,11 +116,11 @@ int aumenta(LDE *listaaux,int idaux, int quantaux){
 int compra(LDE *listaaux, int idaux){
     Tproduto *p;
     for(p=listaaux->primeiro;p!=NULL;p=p->prox){
-        if(p->id=idaux){
+        if(p->id==idaux){
             if(p->quantidade==0){
                 printf("nao existe\n");
             }else{
-                p->lucrototal+=p->lucro;
+                p->lucrototal=p->lucrototal+p->lucro;
                 p->quantidade-=1;
             }
             return 0;
@@ -133,6 +133,13 @@ void lucrototal(LDE *listaaux){
     Tproduto *p;
     for(p=listaaux->primeiro;p!=NULL;p=p->prox){
         printf("%d %f\n",p->id,p->lucrototal);
+    }
+}
+
+void imprime(LDE *listaaux){
+    Tproduto *p;
+    for(p=listaaux->primeiro;p!=NULL;p=p->prox){
+        printf("id: %d\n",p->id);
     }
 }
 
@@ -155,7 +162,6 @@ int main(){
                 //add produto
                 scanf("%d %d %f",&id,&quant,&lucro);
                 insert(&lista,id,quant,lucro);
-                printf("A%dA\n",lista.primeiro->lucro);
                 break;
             case 2:
                 //aumenta quantidade
@@ -173,6 +179,7 @@ int main(){
                 excluiproduto(&lista,id);
                 break;
         }
+        
     }
     lucrototal(&lista);
 }
