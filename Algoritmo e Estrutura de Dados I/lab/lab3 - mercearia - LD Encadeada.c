@@ -31,22 +31,26 @@ int insert(LDE *listaaux,int idaux, int quantaux, float lucroaux){
     p->id=idaux;
     p->quantidade=quantaux;
     p->lucrototal=0;
-    
-    
-    for(i=listaaux->primeiro;i!=NULL;i=i->prox){
-        if(i->id==idaux){
-            printf("Ja existe\n");
-            return 1;
-        }
-    }
-    
+    p->prox=NULL;
     
     if(listaaux->tamanho==0){
         listaaux->primeiro=p;
         listaaux->ultimo=p;
         p->prox=NULL;
         listaaux->tamanho+=1;
-    }else if(p->lucro>listaaux->primeiro->lucro){
+        return 0;
+    }
+
+
+    for(i=listaaux->primeiro;i!=NULL;i=i->prox){
+        if(i->id==idaux){
+            printf("ja existe\n");
+            return 1;
+        }
+    }
+    
+    
+    if(p->lucro>listaaux->primeiro->lucro){
         //insere antes do primeiro
         p->prox=listaaux->primeiro;
         listaaux->primeiro=p;
@@ -77,13 +81,14 @@ int insert(LDE *listaaux,int idaux, int quantaux, float lucroaux){
 int excluiproduto(LDE *listaaux,int idaux){
     Tproduto *p,*q;
     if(listaaux->tamanho==0){
-        printf("lista vazia");
+        printf("nao existe\n");
         return 0;
     }
     if(listaaux->primeiro->id==idaux){
-        p=listaaux->primeiro->prox;
-        free(listaaux->primeiro);
-        listaaux->primeiro=p;
+        p=listaaux->primeiro;
+        listaaux->primeiro=listaaux->primeiro->prox;
+        free(p);
+        listaaux->tamanho--;
         return 0;
     }
     for(p=listaaux->primeiro;p!=NULL;p=p->prox){
@@ -95,6 +100,7 @@ int excluiproduto(LDE *listaaux,int idaux){
                 q->prox=p->prox;
             }
             free(p);
+            listaaux->tamanho--;
             return 0;
         }
         q=p;
