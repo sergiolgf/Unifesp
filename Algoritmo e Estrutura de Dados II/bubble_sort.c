@@ -11,7 +11,7 @@ void imprime_vetor(int vetor[]){
 int main(){
     FILE *arquivole;
 
-    int menor,aux;
+    int aux;
     int vet[elementos];
     int i,k,l;
     arquivole=fopen("vetornum.txt","r");
@@ -23,29 +23,24 @@ int main(){
             fscanf(arquivole," %d",&vet[i]);
         }
     }
+
     imprime_vetor(vet);
-    printf("\n\n");
-    
-    //selection sort
-    for(k=0;k<elementos-1;k++){
-        menor = k;
-        for(l=k+1;l<elementos;l++){
-            if(vet[l]<vet[menor]){
-                menor = l;
+
+    //bubble sort
+
+    for(k=elementos-1;k>0;k--){
+        for(l=0;l<k;l++){
+            if(vet[l]>vet[l+1]){
+                aux = vet[l+1];
+                vet[l+1] = vet[l];
+                vet[l] = aux;
             }
         }
-        if(menor!=k){
-            aux = vet[menor];
-            vet[menor] = vet[k];
-            vet[k] = aux;
-        }
-
     }
-    //-------------------------------
-
+    //--------------------------------
+    printf("\n\n");
     imprime_vetor(vet);
 
     fclose(arquivole);
-
     return 0;
 }
