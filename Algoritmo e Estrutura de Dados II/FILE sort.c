@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "bubble_sort.c"
+#include "sorting.c"
 
 #define elements 10
 
@@ -51,12 +51,32 @@ int main(int argc,char* argv[]){
     //sort
     switch(atoi(argv[2])){
         case 1:
-            printf("bubble sort");
+            printf("Bubble sort");
             bubble_sort(elements,vet);
             break;
+        
+        case 2:
+            printf("Selection sort");
+            selection_sort(elements,vet);
+            break;
+        
+        case 3:
+            printf("Insertion sort");
+            insertion_sort(elements,vet);
+            break;
 
-            default:
-                printf("Erro opcao sort");
+        case 4:
+            printf("Shell sort");
+            shell_sort(elements, vet);
+            break;
+
+        case 5:
+            printf("Merge sort");
+            mergeSort(vet, 0, elements);
+            break;
+        
+        default:
+            printf("Erro opcao sort");
     }
     
 
