@@ -11,7 +11,8 @@ void bubble_sort(int size, int *vet){
         }
     }
 }
-
+//---------------------------------------------------
+//***************************************************
 void selection_sort(int size, int *vet){
     int i,j,min,aux;
     for(i=0;i<size-1;i++){
@@ -27,6 +28,8 @@ void selection_sort(int size, int *vet){
 
     }
 }
+//***************************************************
+//---------------------------------------------------
 
 void insertion_sort(int size, int *vet){
     int i,j,aux;
@@ -41,6 +44,9 @@ void insertion_sort(int size, int *vet){
         vet[j + 1] = aux;
     }
 }
+//---------------------------------------------------
+//---------------------------------------------------
+//***************************************************
 
 void shell_sort(int size, int *vet){
     int i , j ;
@@ -65,66 +71,64 @@ void shell_sort(int size, int *vet){
         }
     }while (h > 0);
 }
+//***************************************************
 
-void merge(int arr[], int l, int m, int r)
+
+//-------------------------------------------------------------------------
+void merge(int arr[], int esq, int m, int dir)
 {
     int i, j, k;
-    int n1 = m - l + 1;
-    int n2 = r - m;
+    int n1 = m - esq + 1;
+    int n2 = dir - m;
  
-    // Create temp arrays
-    int L[n1], R[n2];
+    int ESQ[n1], DIR[n2];
  
-    // Copy data to temp arrays L[] and R[]
     for (i = 0; i < n1; i++)
-        L[i] = arr[l + i];
+        ESQ[i] = arr[esq + i];
     for (j = 0; j < n2; j++)
-        R[j] = arr[m + 1 + j];
+        DIR[j] = arr[m + 1 + j];
  
-    // Merge the temp arrays back into arr[l..r
+
     i = 0;
     j = 0;
-    k = l;
+    k = esq;
     while (i < n1 && j < n2) {
-        if (L[i] <= R[j]) {
-            arr[k] = L[i];
+        if (ESQ[i] <= DIR[j]) {
+            arr[k] = ESQ[i];
             i++;
         }
         else {
-            arr[k] = R[j];
+            arr[k] = DIR[j];
             j++;
         }
         k++;
     }
  
-    // Copy the remaining elements of L[],
-    // if there are any
-    while (i < n1) {
-        arr[k] = L[i];
+     while (i < n1) {
+        arr[k] = ESQ[i];
         i++;
         k++;
     }
  
-    // Copy the remaining elements of R[],
-    // if there are any
     while (j < n2) {
-        arr[k] = R[j];
+        arr[k] = DIR[j];
         j++;
         k++;
     }
 }
  
-// l is for left index and r is right index of the
-// sub-array of arr to be sorted
-void mergeSort(int *arr, int l, int r)
+
+void mergeSort(int *arr, int esq, int dir)
 {
-    if (l < r) {
-        int m = l + (r - l) / 2;
+    if (esq < dir) {
+        int m = esq + (dir - esq) / 2; //meio
  
         // Sort first and second halves
-        mergeSort(arr, l, m);
-        mergeSort(arr, m + 1, r);
+        mergeSort(arr, esq, m);
+        mergeSort(arr, m + 1, dir);
  
-        merge(arr, l, m, r);
+        merge(arr, esq, m, dir);
     }
 }
+
+//----------------------------------------------------------------------------
